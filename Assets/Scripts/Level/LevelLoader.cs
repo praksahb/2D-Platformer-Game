@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
@@ -12,10 +11,11 @@ public class LevelLoader : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(onClick);
+        button.onClick.AddListener(LoadLevel);
     }
-    private void onClick()
+ 
+    public void LoadLevel()
     {
-        SceneManager.LoadScene(LevelName);
+        LevelManager.Instance.LoadAnyLevel(LevelName);
     }
 }

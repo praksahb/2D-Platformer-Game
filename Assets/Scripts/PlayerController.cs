@@ -44,8 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        Debug.Log("Application ending after " + Time.time + " seconds");
-        PlayerPrefs.SetInt("currentLevel", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetInt("currentLevelBeforeExiting", SceneManager.GetActiveScene().buildIndex);
     }
 
     // Player animations control
@@ -141,15 +140,17 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("LevelComplete"))
+        {
+            LevelManager.Instance.MarkCurrentLevelComplete();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     // game logic
 
     public void DamagePlayer()
     {
-        //play hurt animation 
-        // if health = 0, hurt animation will play and then death animation?
+        //play hurt animation
         //playerAnimator.SetBool("Change value to play hurt animation", true);
 
         playerHealth--;
