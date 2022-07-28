@@ -70,10 +70,8 @@ public class LevelManager : MonoBehaviour
         switch (levelStatus)
         {
             case LevelStatus.Locked:
-            {
                 levelSelectionTextController.DisplayLockedText();
                 break;
-            }
             case LevelStatus.Unlocked:
                 SceneManager.LoadScene(LevelName);
                 break;

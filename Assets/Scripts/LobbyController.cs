@@ -20,12 +20,14 @@ public class LobbyController : MonoBehaviour
 
     public void QuitGame()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
     private void PlayGame()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         levelSelection.SetActive(true);
         //Resets TotalScore
         PlayerPrefs.SetInt("totalScore", 0);
@@ -33,12 +35,14 @@ public class LobbyController : MonoBehaviour
 
     private void ResumeGame()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         string cLevel = "currentLevelBeforeExiting";
         LevelManager.Instance.ResumeLastLevelPlayed(cLevel);
     }
 
     private void ResetGame()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         LevelManager.Instance.ResetGameValues();
     }
 }
