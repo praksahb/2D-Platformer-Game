@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource soundEffect;
     public AudioSource soundMusic;
 
+    //Doubt#
+    //Unity editor still registers array as soundType in inspector
     public SoundType[] SoundsArray;
 
     private void Awake()

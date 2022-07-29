@@ -13,7 +13,7 @@ public class GameOverController : MonoBehaviour
     }
     public void QuitGame()
     {
-
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
@@ -28,6 +28,7 @@ public class GameOverController : MonoBehaviour
     //reloadlevel should also be ui function
     private void ReloadLevel()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         LevelManager.Instance.ReloadLevel();
     }
 }
