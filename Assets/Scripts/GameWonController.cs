@@ -31,12 +31,14 @@ public class GameWonController : MonoBehaviour
 
     public void QuitGame()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
     public void PlayNextLevel()
     {
+        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
         LevelManager.Instance.PlayNextLevel();
     }
 

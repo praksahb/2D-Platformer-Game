@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
 
-    public Image[] healthImageArray;
     private bool isCrouched = false;
     private bool isGrounded = true;
     private float horizontal, vertical;
@@ -21,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public float crouchedSpeed;
     public int playerHealth;
     private int levelScore;
+
+    //requies UnityEngine.UI
+    public Image[] healthImageArray;
 
     private void Awake()
     {
