@@ -19,9 +19,14 @@ public class SoundManager : MonoBehaviour
         CreateLevelManager();
     }
 
+    public bool IsSoundEffectPlaying()
+    {
+        return soundEffect.isPlaying;
+    }
+
     private void Start()
     {
-        PlayMusic(Sounds.Music);
+        //PlayMusic(Sounds.Music);
     }
 
     private void CreateLevelManager()
@@ -69,6 +74,11 @@ public class SoundManager : MonoBehaviour
             return audioItem.soundClip;
         return null;
     }
+
+    public void StopPlayEffect()
+    {
+        soundEffect.Stop();
+    }
 }
 
 [Serializable]
@@ -83,6 +93,8 @@ public enum Sounds
     ButtonClick,
     Music,
     PlayerMove,
+    PlayerJump,
+    PlayerLand,
     PlayerDeath,
     EnemyDeath
 }

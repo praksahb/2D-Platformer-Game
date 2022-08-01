@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
 
+    private bool isMoving;
+    private bool isJumping;
     private bool isCrouched = false;
     private bool isGrounded = true;
     private float horizontal, vertical;
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // input mapping
+        // input mapping to player movements
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         isCrouched = Input.GetKey(KeyCode.LeftControl);
@@ -44,6 +46,12 @@ public class PlayerController : MonoBehaviour
         PlayCrouchAnimation(isCrouched);
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal);
+        if (horizontal != 0) isMoving = true;
+        else isMoving = false;
+
+        if (vertical > 0) isJumping = true;
+        else isJumping = false;
+        
     }
     void OnApplicationQuit()
     {
@@ -84,7 +92,9 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isFalling", false);
         }
         if (vertical > 0)
+        {
             playerAnimator.SetBool("isJumpPressed", true);
+        }
 
         if (playerRigidBody.velocity.y < 0 && !isGrounded)
         {
@@ -112,6 +122,17 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter(float horizontal, float vertical)
     {
+
+        //Play Sound - Footsteps 
+        if(isMoving && !SoundManager.Instance.IsSoundEffectPlaying() && !isJumping)
+        {
+            SoundManager.Instance.PlayEffect(Sounds.PlayerMove);
+        }
+        if(!isMoving)
+        {
+            SoundManager.Instance.StopPlayEffect();
+        }
+
         //speed Modifier
         _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
 
@@ -122,7 +143,16 @@ public class PlayerController : MonoBehaviour
 
         //move character vertically 
         if (vertical > 0 && isGrounded && !isCrouched)
+        {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
+            if(SoundManager.Instance.IsSoundEffectPlaying() == false)
+            {
+                SoundManager.Instance.PlayEffect(Sounds.PlayerJump);
+            } else
+            {
+                SoundManager.Instance.StopPlayEffect();
+            }
+        }
     }
 
     // Physics Collision based controller functions
@@ -130,7 +160,10 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
+        {
             isGrounded = true;
+            SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
+        }
         if (collision.gameObject.CompareTag("InstantDeath"))
             KillPlayer();
     }
@@ -172,6 +205,7 @@ public class PlayerController : MonoBehaviour
     }
     public void KillPlayer()
     {
+        SoundManager.Instance.PlayEffect(Sounds.PlayerDeath);
         playerAnimator.SetBool("isPlayerDead", true);
         Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
         enabled = false;
