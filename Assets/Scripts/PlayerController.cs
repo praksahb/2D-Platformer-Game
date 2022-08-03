@@ -148,11 +148,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlaySoundEffectsPlayerJump()
     {
-        SoundManager.Instance.PlayMusic(Sounds.PlayerJump);
+        SoundManager.Instance.PlayEffect(Sounds.PlayerJump);
     }
     private void PlaySoundEffectsPlayerJumpLanding()
     {
-        SoundManager.Instance.PlayMusic(Sounds.PlayerLand);
+        SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
     }
 
     private void KillPlayingSoundsWhilePlayerIdle()
@@ -161,10 +161,10 @@ public class PlayerController : MonoBehaviour
         {
             SoundManager.Instance.StopPlayEffect();
         }
-        if(SoundManager.Instance.IsMusicPlaying())
-        {
-            SoundManager.Instance.StopPlayMusic();
-        }
+        //if(SoundManager.Instance.IsMusicPlaying())
+        //{
+        //    SoundManager.Instance.StopPlayMusic();
+        //}
     }
 
     // Physics Collision based controller functions
