@@ -155,14 +155,6 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.PlayMusic(Sounds.PlayerLand);
     }
 
-    //private void PlaySoundEffectPlayerHurt()
-    //{
-    //    Debug.Log("Count!");
-    //    SoundManager.Instance.StopPlayMusic();
-    //    SoundManager.Instance.StopPlayEffect();
-    //    SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
-    //}
-
     private void KillPlayingSoundsWhilePlayerIdle()
     {
         if(SoundManager.Instance.IsSoundEffectPlaying())
