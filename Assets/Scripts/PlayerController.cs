@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlaySoundEffectsPlayerMove()
     {
-        SoundManager.Instance.PlayMusic(Sounds.PlayerMove);
+        SoundManager.Instance.PlayEffect(Sounds.PlayerMove);
     }
 
     private void PlaySoundEffectsPlayerJump()
@@ -154,6 +154,14 @@ public class PlayerController : MonoBehaviour
     {
         SoundManager.Instance.PlayMusic(Sounds.PlayerLand);
     }
+
+    //private void PlaySoundEffectPlayerHurt()
+    //{
+    //    Debug.Log("Count!");
+    //    SoundManager.Instance.StopPlayMusic();
+    //    SoundManager.Instance.StopPlayEffect();
+    //    SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
+    //}
 
     private void KillPlayingSoundsWhilePlayerIdle()
     {
@@ -199,6 +207,7 @@ public class PlayerController : MonoBehaviour
 
     private void LevelCompleted()
     {
+        SoundManager.Instance.PlayEffect(Sounds.LevelWon);
         gameWonController.LoadGameWonUI(levelScore);
         LevelManager.Instance.MarkCurrentLevelComplete();
         enabled = false;
@@ -208,13 +217,17 @@ public class PlayerController : MonoBehaviour
     {
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
+        //reset hurt animation
+        Invoke("InvokeResetHurtAnimation", .35f);
+
+        SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
 
         playerHealth--;
         UpdateHealthUI();
 
         if (playerHealth <= 0)
             KillPlayer();
-        Invoke("InvokeResetHurtAnimation", .2f);
+
 
     }
     public void KillPlayer()
