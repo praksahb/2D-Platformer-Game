@@ -31,7 +31,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayMusic(Sounds.Music);
+        PlayMusic(Sounds.Music);
     }
 
     private void CreateLevelManager()
@@ -109,4 +109,5 @@ public enum Sounds
     PlayerDeath,
     EnemyDeath,
     LevelWon,
+    LevelLoad,
 }

@@ -16,7 +16,8 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel()
     {
-        SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
+        SoundManager.Instance.StopPlayMusic();
+        SoundManager.Instance.PlayMusic(Sounds.LevelLoad);
         LevelManager.Instance.LoadAnyLevel(LevelName);
     }
 }
