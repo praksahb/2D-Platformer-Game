@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     public GameOverController gameOverController;
     public GameWonController gameWonController;
+    public new ParticleSystem particleSystem;
+
 
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
@@ -94,6 +96,11 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isJumpPressed", false);
             playerAnimator.SetBool("isFalling", true);
         }
+    }
+
+    public void InvokeResetHurtAnimation()
+    {
+        playerAnimator.SetBool("isHurt", false);
     }
 
     //Player movement and animation control
@@ -200,19 +207,22 @@ public class PlayerController : MonoBehaviour
     public void DamagePlayer()
     {
         //play hurt animation
-        //playerAnimator.SetBool("Change value to play hurt animation", true);
+        playerAnimator.SetBool("isHurt", true);
 
         playerHealth--;
         UpdateHealthUI();
 
         if (playerHealth <= 0)
             KillPlayer();
+        Invoke("InvokeResetHurtAnimation", .2f);
+
     }
     public void KillPlayer()
     {
         SoundManager.Instance.PlayEffect(Sounds.PlayerDeath);
         playerAnimator.SetBool("isPlayerDead", true);
         Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
+        particleSystem.Play();
         enabled = false;
     }
 
