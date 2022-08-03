@@ -210,9 +210,12 @@ public class PlayerController : MonoBehaviour
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
         //reset hurt animation
-        Invoke("InvokeResetHurtAnimation", .35f);
+        Invoke("InvokeResetHurtAnimation", .3f);
 
-        SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
+        if(!SoundManager.Instance.IsMusicPlaying())
+        {
+        SoundManager.Instance.PlayMusic(Sounds.PlayerHurt);
+        }
 
         playerHealth--;
         UpdateHealthUI();
