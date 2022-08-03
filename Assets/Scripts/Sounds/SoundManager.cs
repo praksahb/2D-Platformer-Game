@@ -19,6 +19,11 @@ public class SoundManager : MonoBehaviour
         CreateLevelManager();
     }
 
+    public bool IsMusicPlaying()
+    {
+        return soundMusic.isPlaying;
+    }
+
     public bool IsSoundEffectPlaying()
     {
         return soundEffect.isPlaying;
@@ -73,6 +78,11 @@ public class SoundManager : MonoBehaviour
         if(audioItem != null)
             return audioItem.soundClip;
         return null;
+    }
+
+    public void StopPlayMusic()
+    {
+        soundMusic.Stop();
     }
 
     public void StopPlayEffect()

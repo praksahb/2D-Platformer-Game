@@ -9,9 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
-
-    private bool isMoving;
-    private bool isJumping;
+ 
     private bool isCrouched = false;
     private bool isGrounded = true;
     private float horizontal, vertical;
@@ -44,13 +42,8 @@ public class PlayerController : MonoBehaviour
 
         //player movement and animation
         PlayCrouchAnimation(isCrouched);
-        MoveCharacter(horizontal, vertical);
-        PlayMovementAnimation(horizontal);
-        if (horizontal != 0) isMoving = true;
-        else isMoving = false;
-
-        if (vertical > 0) isJumping = true;
-        else isJumping = false;
+        MoveCharacter();
+        PlayMovementAnimation();
         
     }
     void OnApplicationQuit()
@@ -74,12 +67,12 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("isCrouchPressed", false);
         }
     }
-    private void PlayMovementAnimation(float horizontal)
+    private void PlayMovementAnimation()
     {
         //move animation Horizontally
         playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        SwitchHorizontalDirection(horizontal);
+        SwitchHorizontalDirection();
 
         //move animation Vertically
         VerticalJumpAnimation();
@@ -105,14 +98,14 @@ public class PlayerController : MonoBehaviour
 
     //Player movement and animation control
 
-    private void SwitchHorizontalDirection(float directionX)
+    private void SwitchHorizontalDirection()
     {
         Vector3 scale = transform.localScale;
 
-        if (directionX < 0)
+        if (horizontal < 0)
             //changes direction player is facing on x-axis
             scale.x = -1f * Mathf.Abs(scale.x);
-        else if (directionX > 0)
+        else if (horizontal > 0)
             scale.x = Mathf.Abs(scale.x);
 
         transform.localScale = scale;
@@ -120,18 +113,8 @@ public class PlayerController : MonoBehaviour
 
     // Player movement control
 
-    private void MoveCharacter(float horizontal, float vertical)
+    private void MoveCharacter()
     {
-
-        //Play Sound - Footsteps 
-        if(isMoving && !SoundManager.Instance.IsSoundEffectPlaying() && !isJumping)
-        {
-            SoundManager.Instance.PlayEffect(Sounds.PlayerMove);
-        }
-        if(!isMoving)
-        {
-            SoundManager.Instance.StopPlayEffect();
-        }
 
         //speed Modifier
         _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
@@ -145,13 +128,35 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0 && isGrounded && !isCrouched)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
-            if(SoundManager.Instance.IsSoundEffectPlaying() == false)
-            {
-                SoundManager.Instance.PlayEffect(Sounds.PlayerJump);
-            } else
-            {
-                SoundManager.Instance.StopPlayEffect();
-            }
+        }
+    }
+
+    //Player Movement related Sounds
+    // Called in animation event functions
+
+    private void PlaySoundEffectsPlayerMove()
+    {
+        SoundManager.Instance.PlayMusic(Sounds.PlayerMove);
+    }
+
+    private void PlaySoundEffectsPlayerJump()
+    {
+        SoundManager.Instance.PlayMusic(Sounds.PlayerJump);
+    }
+    private void PlaySoundEffectsPlayerJumpLanding()
+    {
+        SoundManager.Instance.PlayMusic(Sounds.PlayerLand);
+    }
+
+    private void KillPlayingSoundsWhilePlayerIdle()
+    {
+        if(SoundManager.Instance.IsSoundEffectPlaying())
+        {
+            SoundManager.Instance.StopPlayEffect();
+        }
+        if(SoundManager.Instance.IsMusicPlaying())
+        {
+            SoundManager.Instance.StopPlayMusic();
         }
     }
 
@@ -162,7 +167,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
+            //SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
         }
         if (collision.gameObject.CompareTag("InstantDeath"))
             KillPlayer();
