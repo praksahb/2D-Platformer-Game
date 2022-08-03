@@ -23,12 +23,6 @@ public class EnemyController : MonoBehaviour
             TurnEnemy();
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.GetComponent<PlayerController>() != null)
-    //        collision.gameObject.GetComponent<PlayerController>().ResetHurtAnimation();
-    //}
-
     public void TurnEnemy()
     {
         Vector3 scale = transform.localScale;
