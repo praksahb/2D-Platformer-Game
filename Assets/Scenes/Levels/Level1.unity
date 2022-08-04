@@ -1375,12 +1375,12 @@ PrefabInstance:
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.68
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.8
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
@@ -1769,12 +1769,12 @@ PrefabInstance:
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.18
+      value: -17.68
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.3
+      value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
@@ -3315,12 +3315,12 @@ PrefabInstance:
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.17
+      value: -7.18
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.01
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 158529130257563083, guid: 504042476c2576d45814d10d0cc17e5f,
         type: 3}
@@ -3607,7 +3607,7 @@ PrefabInstance:
     - target: {fileID: 1494926571590090870, guid: 93573c0d915543a4a9f281e8cda434f1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1494926571590090870, guid: 93573c0d915543a4a9f281e8cda434f1,
         type: 3}
