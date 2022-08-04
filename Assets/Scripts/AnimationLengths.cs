@@ -5,7 +5,8 @@ public class GetAnimationClipLengths : MonoBehaviour
 
     private Animator anim;
 
-    // Use this for initialization
+    // Use this for checking lengths of animation clips playing
+
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();

@@ -156,20 +156,15 @@ public class PlayerController : MonoBehaviour
     }
     private void PlaySoundEffectsPlayerHurt()
     {
-        Debug.Log("Tick");
         SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
     }
 
-    private void KillPlayingSoundsWhilePlayerIdle()
+    private void KillPlayingSoundEffectWhilePlayerIdle()
     {
         if(SoundManager.Instance.IsSoundEffectPlaying())
         {
             SoundManager.Instance.StopPlayEffect();
         }
-        //if(SoundManager.Instance.IsMusicPlaying())
-        //{
-        //    SoundManager.Instance.StopPlayMusic();
-        //}
     }
 
     // Physics Collision based controller functions
@@ -179,7 +174,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            //SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
         }
         if (collision.gameObject.CompareTag("InstantDeath"))
             KillPlayer();
@@ -220,7 +214,7 @@ public class PlayerController : MonoBehaviour
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
         //reset hurt animation
-        Invoke("InvokeResetHurtAnimation", .52f);
+        Invoke("InvokeResetHurtAnimation", .51f);
 
         playerHealth--;
         UpdateHealthUI();
@@ -247,6 +241,7 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpKey()
     {
+        SoundManager.Instance.PlayEffect(Sounds.PickupItems);
         scoreController.IncrementScore(10);
     }
 

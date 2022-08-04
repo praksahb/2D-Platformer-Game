@@ -110,4 +110,5 @@ public enum Sounds
     EnemyDeath,
     LevelWon,
     LevelLoad,
+    PickupItems,
 }

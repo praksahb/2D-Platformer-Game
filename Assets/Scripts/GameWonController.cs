@@ -20,8 +20,6 @@ public class GameWonController : MonoBehaviour
         CloneTotalScoreTextUI();
     }
 
-    // running CloneTotalScoretextUI function in start gives null reference exception
-
     private void CloneTotalScoreTextUI()
     {
         Vector3 scoreTextPosition = scoreText.rectTransform.position;

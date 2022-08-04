@@ -23,9 +23,6 @@ public class GameOverController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    // load level won UI panel
-
-    //reloadlevel should also be ui function
     private void ReloadLevel()
     {
         SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
