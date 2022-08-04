@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        CreateLevelManager();
+        CreateSoundManager();
     }
 
     public bool IsMusicPlaying()
@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
         PlayMusic(Sounds.Music);
     }
 
-    private void CreateLevelManager()
+    private void CreateSoundManager()
     {
         if (instance != null)
         {
