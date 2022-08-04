@@ -241,6 +241,7 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpKey()
     {
+        SoundManager.Instance.PlayEffect(Sounds.PickupItems);
         scoreController.IncrementScore(10);
     }
 
