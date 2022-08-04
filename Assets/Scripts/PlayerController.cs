@@ -154,6 +154,11 @@ public class PlayerController : MonoBehaviour
     {
         SoundManager.Instance.PlayEffect(Sounds.PlayerLand);
     }
+    private void PlaySoundEffectsPlayerHurt()
+    {
+        Debug.Log("Tick");
+        SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
+    }
 
     private void KillPlayingSoundsWhilePlayerIdle()
     {
@@ -178,6 +183,11 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("InstantDeath"))
             KillPlayer();
+        
+        if(collision.gameObject.GetComponent<EnemyController>() != null)
+        {
+            //play hurt animation or call damageplayer function
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -210,19 +220,13 @@ public class PlayerController : MonoBehaviour
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
         //reset hurt animation
-        Invoke("InvokeResetHurtAnimation", .3f);
-
-        if(!SoundManager.Instance.IsMusicPlaying())
-        {
-        SoundManager.Instance.PlayMusic(Sounds.PlayerHurt);
-        }
+        Invoke("InvokeResetHurtAnimation", .52f);
 
         playerHealth--;
         UpdateHealthUI();
 
         if (playerHealth <= 0)
             KillPlayer();
-
 
     }
     public void KillPlayer()
