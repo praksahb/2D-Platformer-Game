@@ -7,27 +7,41 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance;
     public static LevelManager Instance { get { return instance; } }
 
-    //gets lost after level is loaded
-    //as object exists in Lobby level only.
-    public LevelSelectionTextController levelSelectionTextController;
-
-    //private TextMeshProUGUI levelSelectionText;
+    private LevelSelectionTextController levelSelectionTextController;
 
     public string[] Levels;
 
-    private void Start()
+    void OnEnable()
     {
-        CreateLevelManager();
-        UnlockInitialGameScenes();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "Lobby")
+        {
+            GameObject[] arr = scene.GetRootGameObjects();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i].name == "Canvas")
+                {
+                    levelSelectionTextController = arr[i].transform.GetChild(5).GetChild(2).GetComponent<LevelSelectionTextController>();
+                }
+            }
+        }
+    }
+    void OnDisable()
+    {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void Update()
+    private void Awake()
     {
-        if(SceneManager.GetActiveScene().name == "Lobby" && levelSelectionTextController == null)
-        {
-            Debug.Log("Ticking...");
-            levelSelectionTextController = FindObjectOfType<LevelSelectionTextController>();
-        }
+        CreateLevelManager();
+    }
+
+    private void Start()
+    {
+        UnlockInitialGameScenes();
     }
 
     private void CreateLevelManager()
@@ -81,6 +95,11 @@ public class LevelManager : MonoBehaviour
 
         levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
 
+        VerifyLevelStatus(LevelName, levelStatus);
+    }
+
+    private void VerifyLevelStatus(string LevelName, LevelStatus levelStatus)
+    {
         switch (levelStatus)
         {
             case LevelStatus.Locked:
@@ -94,15 +113,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
-    //private void DisplayLockedText()
-    //{
-    //    levelSelectionText.text = "Level is Locked. Complete Previous Level to unlock.";
-    //    Invoke("ClearDisplayedText", 0.5f);
-    //}
-    //private void ClearDisplayedText()
-    //{
-    //    levelSelectionText.text = "";
-    //}
+
     public LevelStatus GetLevelStatus(string level)
     {
         LevelStatus levelStatus = (LevelStatus)PlayerPrefs.GetInt(level, 0);   
