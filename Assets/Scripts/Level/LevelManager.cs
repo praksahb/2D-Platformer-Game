@@ -20,13 +20,8 @@ public class LevelManager : MonoBehaviour
         if(scene.name == "Lobby")
         {
             GameObject[] arr = scene.GetRootGameObjects();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (arr[i].name == "Canvas")
-                {
-                    levelSelectionTextController = arr[i].transform.GetChild(5).GetChild(2).GetComponent<LevelSelectionTextController>();
-                }
-            }
+            if (arr[0].name == "Canvas")
+                levelSelectionTextController = arr[0].transform.GetChild(5).GetChild(2).GetComponent<LevelSelectionTextController>();
         }
     }
     void OnDisable()
@@ -151,6 +146,7 @@ public class LevelManager : MonoBehaviour
     public void ResetGameValues()
     {
         PlayerPrefs.DeleteAll();
+        LevelManager.Instance.SetLevelStatus("Lobby", LevelStatus.Unlocked);
         LevelManager.Instance.SetLevelStatus("Level1", LevelStatus.Unlocked);
     }
 }
