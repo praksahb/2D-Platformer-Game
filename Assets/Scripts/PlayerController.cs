@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     public GameWonController gameWonController;
     public new ParticleSystem particleSystem;
 
+    public float playerSpeed;
+    public float jumpAmount;
+    public float crouchedSpeed;
+    public int playerHealth;
+    public Image[] healthImageArray;
 
     private Animator playerAnimator;
     private Rigidbody2D playerRigidBody;
@@ -16,15 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     private float horizontal, vertical;
     private float normalSpeed;
-
-    public float playerSpeed;
-    public float jumpAmount;
-    public float crouchedSpeed;
-    public int playerHealth;
     private int levelScore;
-
-    //requies UnityEngine.UI
-    public Image[] healthImageArray;
 
     private void Awake()
     {
@@ -122,7 +119,6 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharacter()
     {
-
         //speed Modifier
         _ = isCrouched ? playerSpeed = crouchedSpeed : playerSpeed = normalSpeed;
 
@@ -156,7 +152,7 @@ public class PlayerController : MonoBehaviour
     }
     private void PlaySoundEffectsPlayerHurt()
     {
-        SoundManager.Instance.PlayEffect(Sounds.PlayerHurt);
+        SoundManager.Instance.PlayEffect(Sounds.PlayerHurt, 0.3f);
     }
 
     private void KillPlayingSoundEffectWhilePlayerIdle()
@@ -203,10 +199,16 @@ public class PlayerController : MonoBehaviour
 
     private void LevelCompleted()
     {
-        SoundManager.Instance.PlayEffect(Sounds.LevelWon);
+        SoundManager.Instance.PlayEffect(Sounds.LevelWon, 0.5f);
         gameWonController.LoadGameWonUI(levelScore);
         LevelManager.Instance.MarkCurrentLevelComplete();
+        Invoke("InvokeResetPlayerAnimation", 0.5f);
         enabled = false;
+    }
+
+    private void InvokeResetPlayerAnimation()
+    {
+        playerAnimator.SetFloat("Speed", 0f);
     }
 
     public void DamagePlayer()

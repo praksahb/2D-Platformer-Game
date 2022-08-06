@@ -71,6 +71,18 @@ public class SoundManager : MonoBehaviour
             Debug.LogError("Clip not found for sound type: " + sound);
         }
     }
+    public void PlayEffect(Sounds sound, float volume)
+    {
+        AudioClip clip = GetSoundClip(sound);
+        if (clip != null)
+        {
+            soundEffect.PlayOneShot(clip, volume);
+        }
+        else
+        {
+            Debug.LogError("Clip not found for sound type: " + sound);
+        }
+    }
 
     private AudioClip GetSoundClip(Sounds sound)
     {
