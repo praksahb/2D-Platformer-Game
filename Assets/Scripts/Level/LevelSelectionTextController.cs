@@ -13,7 +13,8 @@ public class LevelSelectionTextController : MonoBehaviour
     public void DisplayLockedText()
     {
         levelSelectionText.text = "Level is Locked. Complete Previous Level to unlock.";
-        Invoke("ClearDisplayedText", 0.5f);
+        float invokeTime = 0.5f;
+        Invoke("ClearDisplayedText", invokeTime);
     }
 
     private void ClearDisplayedText()

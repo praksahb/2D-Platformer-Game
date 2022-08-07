@@ -216,7 +216,8 @@ public class PlayerController : MonoBehaviour
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
         //reset hurt animation
-        Invoke("InvokeResetHurtAnimation", .51f);
+        float hurtAnimationPlayLength = 0.51f;
+        Invoke("InvokeResetHurtAnimation", hurtAnimationPlayLength);
 
         playerHealth--;
         UpdateHealthUI();
