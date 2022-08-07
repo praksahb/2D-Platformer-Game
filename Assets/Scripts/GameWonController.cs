@@ -23,7 +23,7 @@ public class GameWonController : MonoBehaviour
     private void CloneTotalScoreTextUI()
     {
         Vector3 scoreTextPosition = scoreText.rectTransform.position;
-        scoreTextPosition.y -= 60;
+        scoreTextPosition.y -= 50;
         totalScoreText = Instantiate(scoreText, scoreTextPosition, Quaternion.identity, gameObject.transform);
     }
 

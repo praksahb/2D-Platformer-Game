@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     public void TurnEnemy()
     {
         Vector3 scale = transform.localScale;
+        //multiply by -1 to create mirror/transpose of player sprite
         scale.x = -1f * scale.x;
         transform.localScale = scale;
     }

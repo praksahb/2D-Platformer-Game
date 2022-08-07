@@ -3619,6 +3619,26 @@ PrefabInstance:
       propertyPath: healthImageArray.Array.data[2]
       value: 
       objectReference: {fileID: 941376600}
+    - target: {fileID: 1700210528, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700210530, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700210530, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700210531, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700210531, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1494926571590090870, guid: 93573c0d915543a4a9f281e8cda434f1,
         type: 3}
       propertyPath: m_LocalPosition.x
