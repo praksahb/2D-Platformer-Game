@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
     public ScoreController scoreController;
     public GameOverController gameOverController;
     public GameWonController gameWonController;
-    public new ParticleSystem particleSystem;
+    public ParticleSystem particleSystemPlayerDead;
+    public ParticleSystem particleSystemLevelWon;
 
     public float playerSpeed;
     public float jumpAmount;
@@ -23,6 +24,11 @@ public class PlayerController : MonoBehaviour
     private float normalSpeed;
     private int levelScore;
 
+    private Vector3 playerLastFramePosition;
+
+    public static Vector3 PlayerDeltaMovement;
+    private bool IsPlayerDead;
+
     private void Awake()
     {
         playerAnimator = gameObject.GetComponent<Animator>();
@@ -31,9 +37,14 @@ public class PlayerController : MonoBehaviour
         playerHealth = 3;
         crouchedSpeed = normalSpeed / 2;
     }
+    private void Start()
+    {
+        playerLastFramePosition = transform.position;
+    }
 
     private void Update()
     {
+       //Debug.Log(playerLastFramePosition);
         // input mapping to player movements
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
@@ -43,13 +54,28 @@ public class PlayerController : MonoBehaviour
         PlayCrouchAnimation(isCrouched);
         MoveCharacter();
         PlayMovementAnimation();
-        
+
+        //DeltaMovement
+        //UpdateDeltaMovement();
     }
+
     void OnApplicationQuit()
     {
-        string cLevel = "currentLevelBeforeExiting";
+        // clbf = currentLevelBeforeExiting
+        string cLevel = "clbf";
         LevelManager.Instance.SetResumeGameLevel(cLevel);
     }
+
+    //helper function- uncategorized
+    private void UpdateDeltaMovement()
+    {
+        //deltaMovement stores Vector3 position of player and camera(child) transform
+        //change in transform.position
+        PlayerDeltaMovement = transform.position - playerLastFramePosition;
+        playerLastFramePosition = transform.position;
+        Debug.Log(PlayerDeltaMovement);
+    }
+
 
     // Player animations control
 
@@ -124,10 +150,11 @@ public class PlayerController : MonoBehaviour
 
         //move character horizontally
         Vector3 position = transform.position;
-        position.x += horizontal * playerSpeed * Time.deltaTime;
+        float deltaPositionX = horizontal * playerSpeed * Time.deltaTime;
+        position.x += deltaPositionX;
         transform.position = position;
 
-        //move character vertically 
+        //move character vertically
         if (vertical > 0 && isGrounded && !isCrouched)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpAmount);
@@ -174,10 +201,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("InstantDeath"))
             KillPlayer();
         
-        if(collision.gameObject.GetComponent<EnemyController>() != null)
-        {
-            //play hurt animation or call damageplayer function
-        }
+        //function called in enemy controller
+        //if(collision.gameObject.GetComponent<EnemyController>() != null)
+        //{
+        //    //play hurt animation or call damageplayer function
+        //}
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -202,8 +230,11 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.PlayEffect(Sounds.LevelWon, 0.5f);
         gameWonController.LoadGameWonUI(levelScore);
         LevelManager.Instance.MarkCurrentLevelComplete();
+        particleSystemLevelWon.Play();
         Invoke("InvokeResetPlayerAnimation", 0.5f);
         enabled = false;
+        horizontal = 0f;
+        PlayerDeltaMovement = new Vector3(0f, 0f);
     }
 
     private void InvokeResetPlayerAnimation()
@@ -213,6 +244,9 @@ public class PlayerController : MonoBehaviour
 
     public void DamagePlayer()
     {
+        if (IsPlayerDead)
+            return;
+
         //play hurt animation
         playerAnimator.SetBool("isHurt", true);
         //reset hurt animation
@@ -222,17 +256,21 @@ public class PlayerController : MonoBehaviour
         playerHealth--;
         UpdateHealthUI();
 
-        if (playerHealth <= 0)
+        if(playerHealth <= 0) 
+        {
             KillPlayer();
-
+        }
     }
     public void KillPlayer()
     {
+        IsPlayerDead = true;
         SoundManager.Instance.PlayEffect(Sounds.PlayerDeath);
         playerAnimator.SetBool("isPlayerDead", true);
         Invoke("InvokeGameOverMethod", playerAnimator.GetCurrentAnimatorStateInfo(0).length);
-        particleSystem.Play();
+        particleSystemPlayerDead.Play();
         enabled = false;
+        horizontal = 0f;
+        PlayerDeltaMovement = new Vector3(0f, 0f);
     }
 
     // UI related methods

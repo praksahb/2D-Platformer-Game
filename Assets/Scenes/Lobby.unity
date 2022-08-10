@@ -2395,7 +2395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b191cc431e91b7a469bb4a8991c118e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectionTextController: {fileID: 926490688}
   Levels:
   - Level1
   - Level2

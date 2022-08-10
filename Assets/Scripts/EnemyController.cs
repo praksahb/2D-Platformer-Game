@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
             collision.gameObject.GetComponent<PlayerController>().DamagePlayer();
 
-        if(collision.gameObject.tag == "BoundaryLine")
+        if(collision.gameObject.CompareTag("BoundaryLine"))
             TurnEnemy();
     }
 

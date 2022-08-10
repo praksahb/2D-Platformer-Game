@@ -6,11 +6,9 @@ public class ParallaxBackground : MonoBehaviour
 {
     private Transform cameraTransform;
     private Vector3 cameraLastPosition;
-    public float parallaxFactor;
+    public Vector2 parallaxFactor;
 
     //public CameraController cameraController;
-
-    private float deltaMovementHorizontal;
 
     void Start()
     {
@@ -20,27 +18,36 @@ public class ParallaxBackground : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("delta in parallax script: " + deltaMovementHorizontal);
-        Vector3 position = transform.position;
-        position.x += parallaxFactor * CameraController.deltaMovementHorizontal;
-        transform.position = position;
-    }
-
-    void FixedUpdate()
-    {
-
-    }
-
-    public void GetDeltaMovement(float value)
-    {
-        deltaMovementHorizontal = value;
+        //ApplyDeltaValues();
     }
 
     void LateUpdate()
     {
-        //Vector3 deltaMovement = cameraTransform.position - cameraLastPosition;
-        //transform.position += deltaMovement * parallaxFactor;
-        //cameraLastPosition = cameraTransform.position;
-        //Debug.Log("Camera posi: " + cameraTransform.position);
+        MoveGameObject();
     }
+
+    private void MoveGameObject()
+    {
+        Vector3 deltaMovement = cameraTransform.position - cameraLastPosition;
+        transform.position += new Vector3(deltaMovement.x * parallaxFactor.x, deltaMovement.y * parallaxFactor.y);
+        cameraLastPosition = cameraTransform.position;
+    }
+
+    //modify transform values of gameObject
+    private void ApplyDeltaValues()
+    {
+        Vector3 position = transform.position;
+        position += ModifyDeltaValues(PlayerController.PlayerDeltaMovement);
+        transform.position = position;
+    }
+
+    Vector3 ModifyDeltaValues(Vector3 delta)
+    {
+        //delta = PlayerController.PlayerDeltaMovement;
+        delta.x *= parallaxFactor.x;
+        delta.y *= parallaxFactor.y;
+        return delta;
+    }
+
+
 }
