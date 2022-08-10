@@ -36,7 +36,8 @@ public class LobbyController : MonoBehaviour
     private void ResumeGame()
     {
         SoundManager.Instance.PlayEffect(Sounds.ButtonClick);
-        string cLevel = "currentLevelBeforeExiting";
+        // clbf = currentLevelBeforeExiting
+        string cLevel = "clbf";
         LevelManager.Instance.ResumeLastLevelPlayed(cLevel);
     }
 
