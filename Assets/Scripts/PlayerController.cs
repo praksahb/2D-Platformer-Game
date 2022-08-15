@@ -69,7 +69,8 @@ public class PlayerController : MonoBehaviour
     //helper function- uncategorized
     private void UpdateDeltaMovement()
     {
-        //deltaMovement stores Vector3 position of player and camera(child) transform
+        //deltaMovement stores Vector3 change in position of player and camera(child) transform 
+        //from current frame - last frame
         //change in transform.position
         PlayerDeltaMovement = transform.position - playerLastFramePosition;
         playerLastFramePosition = transform.position;
