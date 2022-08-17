@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 312389732}
   - component: {fileID: 312389731}
   m_Layer: 5
-  m_Name: Particle System
+  m_Name: Particle System PlayerDead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4786,7 +4786,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -4970,7 +4970,8 @@ MonoBehaviour:
   scoreController: {fileID: 0}
   gameOverController: {fileID: 0}
   gameWonController: {fileID: 0}
-  particleSystem: {fileID: 312389732}
+  particleSystemPlayerDead: {fileID: 312389732}
+  particleSystemLevelWon: {fileID: 0}
   playerSpeed: 5
   jumpAmount: 4
   crouchedSpeed: 2.5

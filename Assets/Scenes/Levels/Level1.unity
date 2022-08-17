@@ -2843,12 +2843,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ffc8dc1420061c4cbeecdcb8a7b8d30, type: 3}
---- !u!198 &1393109852 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 312389732, guid: 93573c0d915543a4a9f281e8cda434f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2503697333216221518}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1494119290
 GameObject:
   m_ObjectHideFlags: 0
@@ -6746,10 +6740,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 312389730, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
-      propertyPath: m_Name
-      value: Particle System PlayerDead
-      objectReference: {fileID: 0}
     - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
       propertyPath: scoreController
       value: 
@@ -6763,6 +6753,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 323021093}
     - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
+      propertyPath: particleSystemLevelWon
+      value: 
+      objectReference: {fileID: 872420432}
+    - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
       propertyPath: healthImageArray.Array.data[0]
       value: 
       objectReference: {fileID: 654086202}
@@ -6774,18 +6768,6 @@ PrefabInstance:
       propertyPath: healthImageArray.Array.data[2]
       value: 
       objectReference: {fileID: 941376600}
-    - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
-      propertyPath: particleSystemPlayerDead
-      value: 
-      objectReference: {fileID: 1393109852}
-    - target: {fileID: 751794427, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
-      propertyPath: particleSystemLevelWon
-      value: 
-      objectReference: {fileID: 872420432}
-    - target: {fileID: 1700210530, guid: 93573c0d915543a4a9f281e8cda434f1, type: 3}
-      propertyPath: orthographic size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 1494926571590090870, guid: 93573c0d915543a4a9f281e8cda434f1,
         type: 3}
       propertyPath: m_LocalPosition.x
